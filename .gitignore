@@ -1,3 +1,4 @@
-recordings/
-**/__pycache__/
-**/.ipynb_checkpoints/
+recordings
+__pycache__
+.ipynb_checkpoints
+venv
