@@ -78,6 +78,9 @@ class VideoRecord(QObject):
     @classmethod
     def getPaths(cls):
         path = cls.__DIR__
+        if not os.path.exists(path):
+            os.mkdir(path)
+            
         files = os.listdir(path)
         return [[file,path] for file in files]
 
