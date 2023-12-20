@@ -133,7 +133,6 @@ class Recorder(QObject):
                     if image is None:
                         break
  
-                    print(image.shape)
                     ta = time.time()           
                     s = self.record_queue.qsize()
 
