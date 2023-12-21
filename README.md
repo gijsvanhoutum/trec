@@ -9,7 +9,7 @@ Major information:
   - Multiple resolutions and frame rates through Video4Linux integration
   - Easy to expand for new devices i.e. Dinolite-edge etc.
   - Build with Python,Qt, OpenCV and Numpy
-  - Live information in about Frame-rate and frame-rate capacity (%) 
+  - Live frame-rate and frame-rate capacity (%) based on thread capacity
 
 ## Dependencies
 Video4Linux device drivers are needed. To check run in terminal:
@@ -24,11 +24,36 @@ After installation the visible devices can be checked with:
 ```sh
 v4l2-ctl --list-devices
 ```
+If no devices are visible, the application will not be able to capture any. 
+In that case only recorded videos can be played in the application.
 
 ## How to get it
 
-Git is assumed to be installed. Clone the repository to current working directory
+Git has to be installed to clone: 
 ```sh
-git clone https://github.com/gijsvanhoutum/VSI_recorder.git
+sudo apt install git
+```
+Clone the repository to current working directory
+```sh
+git clone https://github.com/gijsvanhoutum/trec.git
+```
+We advise to install a new python virtual environment first with:
+```sh
+python3 -m venv venv
+```
+Activate environment
+```sh
+source venv/bin/activate
+```
+Install all necessary Python packages with:
+```sh
+pip install -r requirements.txt
+```
+## How to run it
+
+To run execute the following from the current working directory:
+```sh
+python3 /trec/trec/main.py
 ```
 
+## How to use it
