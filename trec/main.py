@@ -70,7 +70,7 @@ class Model(QObject):
         
         self.gui.opendevice.connect(self._openDevice)
         self.gui.quitdevice.connect(self._quitDevice)
-        self.gui.quitapp.connect(self._quitapp)
+        self.gui.quitapp.connect(self._quitApp)
         
     @pyqtSlot(object,str,str)
     def _openDevice(self,dev_cls,name,path):
@@ -90,7 +90,7 @@ class Model(QObject):
         self.device_h.quitDevice()
 
     @pyqtSlot()
-    def _quitapp(self):
+    def _quitApp(self):
         self._quitDevice()
         self.display_h.quitDisplay()
 
