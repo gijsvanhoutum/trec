@@ -1,6 +1,8 @@
 # TREC: A threaded video player and recorder 
 
-**TREC** is a GUI application for video recording and playing.
+**TREC** is a GUI application for video recording and playing. This application 
+is especially interesting for new camera devices if they are supported by
+Video4Linux.
 
 ## Main Features / Comments
 Major information:
@@ -47,7 +49,7 @@ source venv/bin/activate
 ```
 Install all necessary Python packages with:
 ```sh
-pip install -r requirements.txt
+pip install -r /trec/requirements.txt
 ```
 ## How to run it
 
@@ -57,3 +59,5 @@ python3 /trec/trec/main.py
 ```
 
 ## How to use it
+
+TODO
