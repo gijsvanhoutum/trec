@@ -58,6 +58,10 @@ To run execute the following from the current working directory:
 python3 /trec/trec/main.py
 ```
 
-## How to use it
+## TODO
 
-TODO
+- Make dynamic update of menu items possible in GUI. Currently, a newly created
+cannot be played back immediately. It requires a complete restart of the app.
+- Complete comments for all classes. 
+- Explore if completely switching to signals and slots, by replacing the 
+queues leads to even better performance.
