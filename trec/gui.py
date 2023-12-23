@@ -1,5 +1,5 @@
 from PyQt5.QtCore import QObject,Qt,QEvent,QSize,pyqtSignal
-
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import (
     QMainWindow,
     QDockWidget,
@@ -10,41 +10,61 @@ from PyQt5.QtWidgets import (
     QComboBox,
     QLineEdit,
 )
-from PyQt5.QtGui import QIcon
+
     
 class Gui(QMainWindow):    
-    
+    """
+    The GUI window
+    """
     opendevice = pyqtSignal(object,str,str)
     quitdevice = pyqtSignal()
     quitapp = pyqtSignal()
     
     __ICON_DIR__ = "../icons/"
         
-    def __init__(self,data_queue,device_classes):
+    def __init__(self,dev_clss):
         super(self.__class__, self).__init__()
+        """
+        Constructor
         
-        self.queue = data_queue
-        
+        Args:
+            dev_clss: (QObject) Available device classes to be initiated.
+        """
+        # Create the main docking widget
         self._createDockWidgets()
-        self._createMenu(device_classes)
+        # Create and populate menu with all available device classes
+        self._createMenu(dev_clss)
+        # Status bar to display system state info
         self._createStatusBar()       
+        # Placeholder for display
         self.pixmap = None
         self.show()
 
     def _createDockWidgets(self):
+        """
+        Create DockingWidget with Label, Toolbar for buttons etc. and hide them
+        """
+        # Create label as the main placeholder for display
         self.label = QLabel()
         self.label.setMinimumSize(1,1)
+        # Resize event from mainwindow requires rescale of label
         self.label.installEventFilter(self)
+        # Create the dock widget holding the label
         self.dock2 = DockWidget(self.label)
+        # if dockwidget closed --> quit the device
         self.dock2.close.connect(self.quitDevice)
         self.addDockWidget(Qt.RightDockWidgetArea,self.dock2)            
         self.setDockNestingEnabled(True)
-        self.dock2.hide()
-        
+        # Create toolbar that will hold all widgets related to each device
         self.toolbar = self.addToolBar("Device")
+        # Hide the dock and toolbar widget since there is no device initially
+        self.dock2.hide()
         self.toolbar.hide()
 
     def eventFilter(self,source,event):
+        """
+        Resize event requires resizing of label holding the image to display
+        """
         if source == self.label and event.type() == QEvent.Resize:
     
             if self.pixmap:
