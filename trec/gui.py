@@ -9,6 +9,7 @@ from PyQt5.QtWidgets import (
     QFrame,
     QComboBox,
     QLineEdit,
+    QMenu
 )
 
     
@@ -36,22 +37,15 @@ class Gui(QMainWindow):
         self._createMenu(dev_clss)
         # Status bar to display system state info
         self._createStatusBar()       
-        # Placeholder for display
-        self.pixmap = None
+        
         self.show()
 
     def _createDockWidgets(self):
         """
         Create DockingWidget with Label, Toolbar for buttons etc. and hide them
         """
-        # Create label as the main placeholder for display
-        self.label = QLabel()
-        self.label.setMinimumSize(1,1)
-        # Resize event from mainwindow requires rescale of label
-        self.label.installEventFilter(self)
-        # Create the dock widget holding the label
-        self.dock2 = DockWidget(self.label)
-        # if dockwidget closed --> quit the device
+        # Create Dockwidget holding the device image and widgets
+        self.dock2 = DockWidget()
         self.dock2.close.connect(self.quitDevice)
         self.addDockWidget(Qt.RightDockWidgetArea,self.dock2)            
         self.setDockNestingEnabled(True)
@@ -60,42 +54,57 @@ class Gui(QMainWindow):
         # Hide the dock and toolbar widget since there is no device initially
         self.dock2.hide()
         self.toolbar.hide()
-
-    def eventFilter(self,source,event):
-        """
-        Resize event requires resizing of label holding the image to display
-        """
-        if source == self.label and event.type() == QEvent.Resize:
-    
-            if self.pixmap:
-                self.pixmap = self.pixmap.scaled(self.label.size(),
-                                                 Qt.KeepAspectRatio,
-                                                 Qt.SmoothTransformation)
-            
-                self.label.setPixmap(self.pixmap)
-
-        return super(QMainWindow,self).eventFilter(source,event)
         
     def _createMenu(self,dev_clss):
+        """
+        Creates the Menubar and all available devices
+        
+        TODO: 
+        - Dynamically update menubar. Just recorded videos are not seen and
+        the applications needs be restarted to see them.
+        """
         self.menu = self.menuBar().addMenu("&Select Source")
         
         for dev_cls in dev_clss:
-            name = dev_cls.getClassName()
-            icon_str = dev_cls.getClassIcon()     
-            name_paths = dev_cls.getPaths()
+            # add classname to menu
+            icon = QIcon(self.__ICON_DIR__+"%s" % dev_cls.getClassIcon())
+            menu = self.menu.addMenu(icon,dev_cls.getClassName())      
             
-            if type(icon_str) == str and icon_str[-4:] == ".svg":
-                icon = QIcon(self.__ICON_DIR__+"%s" % icon_str)
-                menu = self.menu.addMenu(icon,name)
-            else:
-                menu = self.menu.addMenu(name)           
-
-            for name,path in name_paths:
+            # for every available device in each class add action
+            for name,path in dev_cls.getPaths():
                 action = self.createAction(name)
                 action.my_data = [dev_cls,name,path]
                 action.triggered.connect(self.openDevice)  
                 menu.addAction(action)
         
+    def _createStatusBar(self):
+        self.sizeLabel = QLabel()
+        self.sizeLabel.setFrameStyle(QFrame.StyledPanel|QFrame.Sunken)
+        
+        self.status = self.statusBar()
+        self.status.setSizeGripEnabled(False)
+        self.status.addPermanentWidget(self.sizeLabel)
+        self.status.showMessage("Ready", 5000)
+        
+    def createAction(self, text, icon=None,tip=None,shortcut=None):                         
+        action = QAction(text, self)
+        if icon is not None:
+            if icon[-4:] == ".svg":
+                ic = QIcon(self.__ICON_DIR__+"%s" % icon)
+                
+            action.setIcon(ic)
+            
+        if shortcut is not None:
+            action.setShortcut(shortcut)
+        if tip is not None:
+            action.setToolTip(tip)
+            action.setStatusTip(tip)
+        else:
+            action.setToolTip(text)
+            action.setStatusTip(text)
+
+        return action
+    
     def openDevice(self):
         data = self.sender().my_data
         self.opendevice.emit(*data)     
@@ -106,7 +115,7 @@ class Gui(QMainWindow):
         self.quitdevice.emit()
         self.toolbar.clear()
         self.toolbar.hide()
-        self.label.clear()
+        self.dock2.clear()
 
     def addActions(self,specs):
         self.toolbar.show()
@@ -142,61 +151,14 @@ class Gui(QMainWindow):
         self.sender().my_data(data)
 
     def updateStat(self,stats):
-        for s in stats:
-            self.dock2.setTitle(*s)   
+        self.dock2.updateStat(stats)
         
     def updateImage(self,pixmap):
-        self.pixmap = pixmap.scaled(self.label.size(),
-                                    Qt.KeepAspectRatio,
-                                    Qt.SmoothTransformation)
-        
-        self.label.setPixmap(self.pixmap)
+        self.dock2.updateImage(pixmap)
         
     def sizeHint(self):
-        return QSize(640,480)
-        
-    def updateDevices(self):
-        target = self.sender()
-        data = target.my_data
-        dev_cls = data[0]
-        dev_menu = data[1]
-
-        dev_menu.clear()
-
-        for name_path in dev_cls.getPaths():
-            action = self.createAction(name_path[0]) 
-            dev_menu.addAction(action)      
-            action.my_data = [*name_path,dev_cls]
-            action.triggered.connect(self.openDevice)                        
-            
-    def createAction(self, text, icon=None,tip=None,shortcut=None):                         
-        action = QAction(text, self)
-        if icon is not None:
-            if icon[-4:] == ".svg":
-                ic = QIcon(self.__ICON_DIR__+"%s" % icon)
-                
-            action.setIcon(ic)
-            
-        if shortcut is not None:
-            action.setShortcut(shortcut)
-        if tip is not None:
-            action.setToolTip(tip)
-            action.setStatusTip(tip)
-        else:
-            action.setToolTip(text)
-            action.setStatusTip(text)
-
-        return action
-                                  
-    def _createStatusBar(self):
-        self.sizeLabel = QLabel()
-        self.sizeLabel.setFrameStyle(QFrame.StyledPanel|QFrame.Sunken)
-        
-        self.status = self.statusBar()
-        self.status.setSizeGripEnabled(False)
-        self.status.addPermanentWidget(self.sizeLabel)
-        self.status.showMessage("Ready", 5000)
-
+        return QSize(640,480)                      
+                    
     def closeEvent(self,event):
         self.quitapp.emit()
         event.accept()
@@ -205,11 +167,16 @@ class DockWidget(QDockWidget):
     
     close = pyqtSignal()
     
-    def __init__(self,widget):
+    def __init__(self):
         super(self.__class__, self).__init__()   
+        
+        self.label = QLabel()
+        self.label.setMinimumSize(1,1)
+        self.setWidget(self.label) 
+        
         self.setFloating(False)
         self.setAllowedAreas(Qt.AllDockWidgetAreas)
-        self.setWidget(widget) 
+
         self.setSizePolicy(QSizePolicy.Minimum,QSizePolicy.Minimum)
         self.default_title = None
         
@@ -226,3 +193,18 @@ class DockWidget(QDockWidget):
     def closeEvent(self,event):
         self.close.emit()
         event.accept()
+        
+    def updateStat(self,stats):
+        for s in stats:
+            self.setTitle(*s)   
+        
+    def updateImage(self,pixmap):
+        pixmap = pixmap.scaled(
+            self.label.size(),
+            Qt.KeepAspectRatio,Qt.SmoothTransformation
+        )
+        self.label.setPixmap(pixmap)
+        
+    def clear(self):
+        self.label.clear()
+        
