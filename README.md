@@ -63,5 +63,6 @@ python3 /trec/trec/main.py
 - Make dynamic update of menu items possible in GUI. Currently, a newly created
 cannot be played back immediately. It requires a complete restart of the app.
 - Complete comments for all classes. 
-- Explore if completely switching to signals and slots, by replacing the 
-queues leads to even better performance.
+- Currently Python Queues are used, which are thread-safe. All Mutex and locking 
+is handled within the queue itself. A switch to QThreads is started (QMutex etc.)
+is implemented, but needs to be finished.
