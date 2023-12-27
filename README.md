@@ -6,6 +6,8 @@ Click the link below to be redirected to the Github repo!
 is especially interesting for new camera devices if they are supported by
 Video4Linux.
 
+<img src="icons/screenshot.png?raw=true"/>
+
 ## Main Features / Comments
 Major information:
 
