@@ -11,7 +11,7 @@ An example screenshot of TREC capturing the integrated camera of a laptop. The
 MLPG video codec with a resolution of 320x180 pixels at 15 frames per second (FPS) is
 selected (Many options are possible normally) 
 
-<img src='icons/screenshot_player.png' height='400'/> <img src='icons/screenshot_recorder.png' height='400'/> 
+![alt-text-1](icons/screenshot_player.png "title-1" =50%x) ![alt-text-2](icons/screenshot_recorder.png "title-2" =50%x)
 
 Another example screenshot of TREC capturing a recorded video of an additive 
 manufacturing process, Directed Energy Deposition (DED), to be specific. The
