@@ -1,4 +1,4 @@
-<!-- # TREC: A threaded video player and recorder  -->
+Click the link below to be redirected to the Github repo!
 
 # <a href="https://github.com/gijsvanhoutum/trec">TREC: A threaded video player and recorder </a>
 
