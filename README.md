@@ -1,5 +1,3 @@
-Click the link below to be redirected to the Github repo!
-
 # TREC: A threaded video player and recorder
 
 **TREC** is a GUI application for video recording and playing. This application 
