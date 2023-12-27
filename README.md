@@ -13,7 +13,7 @@ TREC capturing the integrated camera of a laptop. The MLPG video codec with a
 resolution of 320x180 pixels at 15 frames per second (FPS) is selected (Many 
 options are possible normally). The **right** screenshot displays TREC capturing 
 a recorded video of an additive manufacturing process, Directed Energy 
-Deposition (DED), to be specific. Thevideo is played back at 90+ FPS.
+Deposition (DED), to be specific. The video is played back at 90+ FPS.
 
 <p align="center">
   <img alt="Light" src="icons/screenshot_player.png" width="45%">
