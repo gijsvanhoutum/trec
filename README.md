@@ -6,9 +6,16 @@ Click the link below to be redirected to the Github repo!
 is especially interesting for new camera devices if they are supported by
 Video4Linux.
 
-![Screenshot of TREC example](icons/screenshot.png)
+## Gallery
+An example screenshot of TREC capturing the integrated camera of a laptop. The
+MLPG video codec with a resolution of 320x180 pixels at 15 frames per second (FPS) is
+selected (Many options are possible normally) 
+![Screenshot of TREC example](icons/screenshot_player.png)
 
-<!-- <img src="icons/screenshot.png?raw=true"/> -->
+Another example screenshot of TREC capturing a recorded video of an additive 
+manufacturing process, Directed Energy Deposition (DED), to be specific. The
+video is played back at 90+ FPS.
+![Screenshot of TREC example](icons/screenshot_recorder.png)
 
 ## Main Features / Comments
 Major information:
