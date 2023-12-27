@@ -31,6 +31,8 @@ class Gui(QMainWindow):
         Args:
             dev_clss: (QObject) Available device classes to be initiated.
         """
+        # set the title
+        self.setWindowTitle("TREC")
         # Create the main docking widget
         self._createDockWidgets()
         # Create and populate menu with all available device classes
