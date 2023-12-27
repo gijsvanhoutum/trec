@@ -7,9 +7,13 @@ is especially interesting for new camera devices if they are supported by
 Video4Linux.
 
 ## Gallery
-An example screenshot of TREC capturing the integrated camera of a laptop. The
-MLPG video codec with a resolution of 320x180 pixels at 15 frames per second (FPS) is
-selected (Many options are possible normally) 
+
+Two example screenshots are displayed below. The **left** screenshot displays
+TREC capturing the integrated camera of a laptop. The MLPG video codec with a 
+resolution of 320x180 pixels at 15 frames per second (FPS) is selected (Many 
+options are possible normally). The **right** screenshot displays TREC capturing 
+a recorded video of an additive manufacturing process, Directed Energy 
+Deposition (DED), to be specific. Thevideo is played back at 90+ FPS.
 
 <p align="center">
   <img alt="Light" src="icons/screenshot_player.png" width="45%">
@@ -17,13 +21,6 @@ selected (Many options are possible normally)
   <img alt="Dark" src="icons/screenshot_recorder.png" width="45%">
 </p>
 
-<!-- 
-![alt-text-1](icons/screenshot_player.png "title-1" =50%x) ![alt-text-2](icons/screenshot_recorder.png "title-2" =50%x)
- -->
-Another example screenshot of TREC capturing a recorded video of an additive 
-manufacturing process, Directed Energy Deposition (DED), to be specific. The
-video is played back at 90+ FPS.
-![Screenshot of TREC example](icons/screenshot_recorder.png | width=100)
 
 ## Main Features / Comments
 Major information:
