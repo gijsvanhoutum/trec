@@ -10,12 +10,12 @@ Video4Linux.
 An example screenshot of TREC capturing the integrated camera of a laptop. The
 MLPG video codec with a resolution of 320x180 pixels at 15 frames per second (FPS) is
 selected (Many options are possible normally) 
-![Screenshot of TREC example](icons/screenshot_player.png)
+![Screenshot of TREC example](icons/screenshot_player.png | width=100)
 
 Another example screenshot of TREC capturing a recorded video of an additive 
 manufacturing process, Directed Energy Deposition (DED), to be specific. The
 video is played back at 90+ FPS.
-![Screenshot of TREC example](icons/screenshot_recorder.png)
+![Screenshot of TREC example](icons/screenshot_recorder.png | width=100)
 
 ## Main Features / Comments
 Major information:
